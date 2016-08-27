@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{%block title%}Change Password{% endblock %}
+{% block content %}
+{% if messages %}
+    <center>
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}><b><i>{{ message }}</i></b></li>
+        {% endfor %}
+        {% endif %}
+    </ul>
+        </center>
+<center>
+<form action="" method="post">
+    {% csrf_token %}
+    {% for field in form%}
+    <label>{{field.label_tag}}</label><br/>
+        {{field}}<hr/>
+    {% endfor %}
+        <input type="submit" class = "btn btn-primary" value="Submit" />
+    </form>
+    </center>
+{% endblock %}

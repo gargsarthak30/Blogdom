@@ -1,0 +1,19 @@
+from django import forms
+from .models import UserBlogdom, Post
+
+
+class UserBlogdomForm(forms.ModelForm):
+
+    class Meta:
+        model = UserBlogdom
+        fields = ('first_name', 'last_name', 'email', 'age', 'bio', 'description', 'profile_picture')
+        widgets = {'description': forms.Textarea}
+
+class PostForm(forms.ModelForm):
+
+    class Meta:
+        model = Post
+        fields = ('heading', 'blog_content', 'public', 'image')
+        widgets = {"blog_content": forms.Textarea, "heading": forms.Textarea}
+
+

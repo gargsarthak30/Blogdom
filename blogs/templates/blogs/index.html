@@ -1,0 +1,51 @@
+{% extends 'blogs/base.html' %}
+{%block title %} Home {%endblock %}
+{% block content %}
+
+<div class = "col-md-3">
+    <br/>
+    <center>
+    <h4><i>Recent Posts</i></h4>
+        </center>
+    <hr/>
+     <ul class="list-group">
+    {% for rec in recent_posts %}
+   <li class="list-group-item"><a href = "{% url 'user_profile' rec.blogger %}">{{rec.heading}}</a></li>
+    {% endfor %}
+    </ul>
+</div>
+<div class = "col-md-6">
+    <center><h2>Top Blogs</h2></center>
+    {% for posts in top_posts %}
+        <div class="page-header">
+            <h3><i>{{posts.heading}}</i>&nbsp;<small><a href = "{% url 'user_profile' posts.blogger %}">{{posts.blogger}}</a></small></h3>
+        </div>
+    {% if posts.image %}
+    <img src = "{{posts.image.url}}" class = "img-responsive">
+    {% endif %}
+
+        <div class="well">
+        <p>{{posts.blog_content}}</p>
+        <small>{{posts.time}}</small>
+    </div>
+    <form method="post" action = "{% url 'post_upvote' posts.id%}" >
+        {% csrf_token %}
+        <button type = "submit" class = "btn btn-lg btn-primary btn-block"><b>
+          <span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{posts.upvotes}} </b>
+        </button>
+    </form>
+    <hr/>
+    {% endfor %}
+</div>
+<div class = "col-md-3">
+    <br/>
+    <center>
+    <h4><i>Top Bloggers</i></h4><hr/>
+        </center>
+<ul class="list-group">
+    {% for top in best_bloggers %}
+   <li class="list-group-item" ><span class="badge">{{top.get_rating}}</span><a href = "{% url 'user_profile' top.user %}">{{top.user}}</a></li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}
