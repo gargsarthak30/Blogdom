@@ -1,0 +1,72 @@
+{% extends 'blogs/base.html' %}
+
+{% block title %} {{user}} {% endblock %}
+{% block content %}
+
+<br/>
+<br/>
+
+<div class = "container-fluid">
+    {% ifequal user|stringformat:"s" request.user|stringformat:"s" %}
+    <center><h2>Welcome to Blogdom <br/><a href = "{% url 'user_profile_edit' %}">{{user}}</a></h2></center>
+    <hr/>
+    <center>
+        <a href = "{% url 'new_post' %}" class="btn btn-danger btn-lg">Create New Blog&nbsp;&nbsp;
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></a>
+        <br/>
+        </center>
+    {%endifequal%}
+    <div class = "col-md-2">
+        {% if user.profile_picture %}
+            <img src = "{{user.profile_picture.url}}" class = "img-responsive">
+        {% endif %}
+        <h2> {{user.first_name}} {{user.last_name}} </h2>
+        <h5><b>{{user.age}},<br/>{{user.bio}}</b></h5><br/>
+    <p>{{user.description}}</p>
+    </div>
+    <div class = "col-md-1"></div>
+    <div class = "col-md-5">
+        <h3><b>Recent Posts</b></h3>
+        <hr/>
+        {% for pos in posts %}
+        <center>
+            <h3>{{pos.heading}}
+            {% ifequal user|stringformat:"s" request.user|stringformat:"s" %}
+                <a href = "{% url 'post_edit' pos.id%}"><small>Edit</small></a>
+            {% endifequal %}
+            </h3>
+        </center>
+            {% if pos.image %}
+                <img src = "{{pos.image.url}}" class = "img-responsive">
+            {% endif %}
+<div class="well">
+                <p>{{pos.blog_content}}</p>
+                <small>{{pos.time}}</small>
+</div>
+        <form method="post" action = "{% url 'post_upvote' pos.id%}" >
+        {% csrf_token %}
+        <button type = "submit" class = "btn btn-lg btn-primary btn-block"><b>
+          <span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{pos.upvotes}} </b>
+        </button>
+    </form>
+    <hr/>
+        {% endfor %}
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+    <center><i>STATS</i></center>
+        <br/>
+        <table class="table table-hover table-inverse">
+            <tr>
+                <th><i>Total posts</i></th><th>{{ user.count_posts }}</th>
+            </tr>
+            <tr>
+                <th><i>Total upvotes</i></th><th>{{ user.count_upvotes.upvotes__sum }}</th>
+            </tr>
+            <tr>
+                <th><i>User Rating</i></th><th>{{ user.get_rating }}</th>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}

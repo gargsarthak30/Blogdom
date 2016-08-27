@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{%block title%}{% endblock %} | Blogdom</title>
+    {% load static %}
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'blogs/css/bootstrap.css' %}">-->
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'blogs/css/bootstrap.min.css' %}">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <style>
+    body{
+    	background-image: url("{% static 'blogs/background/school.png' %}");
+        background-repeat: repeat;
+    }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top ">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <a class="navbar-brand" href="{% url 'index' %}">BLOGDOM</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">Page 1</a></li>
+          <li><a href="#">Page 2</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {% if not request.user.is_anonymous %}
+            <li class = "dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href = "#" >
+                   <!--href="{% url 'user_profile' request.user %}">-->
+                    <span class="glyphicon glyphicon-user">
+                    </span>&nbsp;{{request.user}}
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                     <li><a href="{% url 'user_profile' request.user %}">{{request.user.profile.first_name}} {{request.user.profile.last_name}}</a></li>
+                    <li><a href="{% url 'user_profile_edit' %}">Edit Profile</a></li>
+                    <li><a href = "{% url 'logout' %}">LogOut</a></li>
+                </ul>
+            </li>
+            {% else %}
+              <li>
+                  <a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span>&nbsp;Login</a>
+              </li>
+                <li>
+                    <a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span>&nbsp;Sign Up</a>
+                </li>
+            {% endif %}
+        </ul>
+  </div>
+  </div>
+</nav>
+<br/>
+<br/>
+{% block content %}
+{% endblock %}
+<script type = "text/javascript" src = "{% static 'blogs/js/jquery.js' %}"></script>
+<script type = "text/javascript" src = "{% static 'blogs/js/bootstrap.min.js' %}"></script>
+</body>
+</html>
