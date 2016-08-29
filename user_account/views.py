@@ -155,5 +155,3 @@ class PasswordResetConfirmView(FormView):
              messages.error(request, 'The reset password link is no longer valid.')
              return self.form_invalid(form)
 
-
-

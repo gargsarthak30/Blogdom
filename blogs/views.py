@@ -118,3 +118,4 @@ class UserBlogdom_Detail(generics.RetrieveAPIView):
     queryset = UserBlogdom.objects.all()
     serializer_class = UserBlogdomSerializer
 
+

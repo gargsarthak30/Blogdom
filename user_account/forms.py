@@ -2,7 +2,7 @@ from django import forms
 
 
 class PasswordResetRequestForm(forms.Form):
-    email_or_username = forms.CharField(label=("Email or Username"), max_length=254)
+    email_or_username = forms.CharField(label=("Email or Username"), max_length=254, widget=forms.TextInput(attrs={'class':'form-control'}))
 
 
 class SetPasswordForm(forms.Form):
