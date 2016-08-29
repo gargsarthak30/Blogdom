@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, HttpResponseRedirect, render, HttpResponse, redirect
+from django.shortcuts import  HttpResponseRedirect, render
 from django.views.generic.base import TemplateView
 from django.views.generic import CreateView, UpdateView
 from . models import Post, UserBlogdom, UpvoteDetail
@@ -6,6 +6,9 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from . forms import UserBlogdomForm, PostForm
 from django.contrib.auth import logout
+from rest_framework import generics
+from .serializer import UserBlogdomSerializer, PostSerializer
+
 
 class IndexView(TemplateView):
     template_name = 'blogs/index.html'
@@ -92,6 +95,26 @@ def LogoutUser(request):
     return HttpResponseRedirect(reverse('index'))
 
 
+class Post_List(generics.ListAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
 
 
+class Post_Detail(generics.ListAPIView):
+    serializer_class = PostSerializer
+
+    def get_queryset(self):
+        blog_by = self.kwargs['blogger']
+        return Post.objects.filter(blogger=blog_by)
+
+
+class UserBlogdom_List(generics.ListAPIView):
+    queryset = UserBlogdom.objects.all()
+    serializer_class = UserBlogdomSerializer
+
+
+class UserBlogdom_Detail(generics.RetrieveAPIView):
+    lookup_field = 'user__username'
+    queryset = UserBlogdom.objects.all()
+    serializer_class = UserBlogdomSerializer
 
