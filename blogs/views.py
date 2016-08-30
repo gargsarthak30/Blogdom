@@ -104,8 +104,9 @@ class Post_Detail(generics.ListAPIView):
     serializer_class = PostSerializer
 
     def get_queryset(self):
-        blog_by = self.kwargs['blogger']
-        return Post.objects.filter(blogger=blog_by)
+        blog_by = self.kwargs['username']
+        user = UserBlogdom.objects.get(user__username = blog_by)
+        return Post.objects.filter(blogger=user.id)
 
 
 class UserBlogdom_List(generics.ListAPIView):

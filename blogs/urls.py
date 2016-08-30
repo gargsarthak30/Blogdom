@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'upvote/(?P<post_id>[0-9]+)/', views.post_upvote, name='post_upvote'),
     url(r'^data/users/$', views.UserBlogdom_List.as_view(), name="users-api"),
     url(r'^data/posts/$', views.Post_List.as_view(), name="posts-api"),
-    url(r'^data/posts/(?P<blogger>[0-9]+)/$', views.Post_Detail.as_view(), name="posts-api-specific"),
+    url(r'^data/posts/(?P<username>[\w-]+)/$', views.Post_Detail.as_view(), name="posts-api-specific"),
     url(r'^data/users/(?P<user__username>[\w-]+)/$', views.UserBlogdom_Detail.as_view(), name="users-api-specific"),
 ]
 
