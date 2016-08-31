@@ -30,7 +30,7 @@
         <hr/>
         {% for pos in posts %}
         <center>
-            <h3>{{pos.heading}}
+            <h3 style = "font-family: 'Ceviche+One', cursive;">{{pos.heading}}
             {% ifequal user|stringformat:"s" request.user|stringformat:"s" %}
                 <a href = "{% url 'post_edit' pos.id%}"><small>Edit</small></a>
             {% endifequal %}
@@ -40,15 +40,12 @@
                 <img src = "{{pos.image.url}}" class = "img-responsive">
             {% endif %}
 <div class="well">
-                <p>{{pos.blog_content}}</p>
+                <p style = "font-family: 'Alegreya', cursive;">{{pos.blog_content}}</p>
                 <small>{{pos.time}}</small>
 </div>
-        <form method="post" action = "{% url 'post_upvote' pos.id%}" >
-        {% csrf_token %}
-        <button type = "submit" class = "btn btn-lg btn-primary btn-block"><b>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{pos.upvotes}} </b>
+        <button onclick = "upvotes_ajax({{pos.id}})" class = "btn btn-lg btn-primary btn-block"><b>
+          <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span id = "{{pos.id}}">{{pos.upvotes}}</span></b>
         </button>
-    </form>
     <hr/>
         {% endfor %}
     </div>
