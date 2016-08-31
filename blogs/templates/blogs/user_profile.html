@@ -2,10 +2,8 @@
 
 {% block title %} {{user}} {% endblock %}
 {% block content %}
-
 <br/>
 <br/>
-
 <div class = "container-fluid">
     {% ifequal user|stringformat:"s" request.user|stringformat:"s" %}
     <center><h2>Welcome to Blogdom <br/><a href = "{% url 'user_profile_edit' %}">{{user}}</a></h2></center>
@@ -22,7 +20,7 @@
         {% endif %}
         <h2> {{user.first_name}} {{user.last_name}} </h2>
         <h5><b>{{user.age}},<br/>{{user.bio}}</b></h5><br/>
-    <p>{{user.description}}</p>
+    <p style = "font-family: 'Ceviche+One', cursive;">{{user.description}}</p>
     </div>
     <div class = "col-md-1"></div>
     <div class = "col-md-5">
@@ -38,20 +36,20 @@
         </center>
             {% if pos.image %}
                 <img src = "{{pos.image.url}}" class = "img-responsive">
+        <br/>
             {% endif %}
-<div class="well">
-                <p style = "font-family: 'Alegreya', cursive;">{{pos.blog_content}}</p>
+
+                <p style = "font-family: 'Oleo+Script', cursive;">{{pos.blog_content}}</p>
                 <small>{{pos.time}}</small>
-</div>
         <button onclick = "upvotes_ajax({{pos.id}})" class = "btn btn-lg btn-primary btn-block"><b>
           <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span id = "{{pos.id}}">{{pos.upvotes}}</span></b>
         </button>
-    <hr/>
+    <hr  style = "border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));"/>
         {% endfor %}
     </div>
     <div class="col-md-2"></div>
     <div class="col-md-2">
-    <center><i>STATS</i></center>
+    <center><i><b>STATS</b></i></center>
         <br/>
         <table class="table table-hover table-inverse">
             <tr>
@@ -65,5 +63,6 @@
             </tr>
         </table>
     </div>
+
 </div>
 {% endblock %}
