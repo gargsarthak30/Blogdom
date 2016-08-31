@@ -18,23 +18,20 @@
     <center><h2>Top Blogs</h2></center>
     {% for posts in top_posts %}
         <div class="page-header">
-            <h3><i>{{posts.heading}}</i>&nbsp;<small><a href = "{% url 'user_profile' posts.blogger %}">{{posts.blogger}}</a></small></h3>
+            <h3 style = "font-family: 'Ceviche+One', cursive;"><i>{{posts.heading}}</i>&nbsp;<small><a href = "{% url 'user_profile' posts.blogger %}">{{posts.blogger}}</a></small></h3>
         </div>
     {% if posts.image %}
     <img src = "{{posts.image.url}}" class = "img-responsive">
     {% endif %}
 
         <div class="well">
-        <p>{{posts.blog_content}}</p>
+        <p style = "font-family: 'Alegreya', cursive;">{{posts.blog_content}}</p>
         <small>{{posts.time}}</small>
     </div>
-    <form method="post" action = "{% url 'post_upvote' posts.id%}" >
-        {% csrf_token %}
-        <button type = "submit" class = "btn btn-lg btn-primary btn-block"><b>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{posts.upvotes}} </b>
-        </button>
-    </form>
-    <hr/>
+    <button onclick = "upvotes_ajax({{posts.id}})" class = "btn btn-lg btn-primary btn-block"><b>
+          <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span id = "{{posts.id}}">{{posts.upvotes}}</span></b>
+    </button>
+<hr/>
     {% endfor %}
 </div>
 <div class = "col-md-3">
@@ -48,4 +45,7 @@
     {% endfor %}
     </ul>
 </div>
+
+
+
 {% endblock %}

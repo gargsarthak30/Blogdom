@@ -7,9 +7,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'blogs/css/bootstrap.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'blogs/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Monoton|Alegreya" rel="stylesheet">
     <style>
     body{
-    	background-image: url("{% static 'blogs/background/school.png' %}");
+    	background-image: url("{% static 'blogs/background/light-tile.gif' %}");
         background-repeat: repeat;
     }
     </style>
@@ -62,6 +63,22 @@
 <br/>
 {% block content %}
 {% endblock %}
+<script>
+    function upvotes_ajax(id) {
+    {% if not request.user.is_anonymous %}
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            document.getElementById(id).innerHTML = xhttp.responseText;
+        }
+    };
+    xhttp.open("GET", "blogs/upvote/"+id, true);
+    xhttp.send();
+{% else %}
+location.href = "{% url 'login' %}";
+{% endif %}
+}
+</script>
 <script type = "text/javascript" src = "{% static 'blogs/js/jquery.js' %}"></script>
 <script type = "text/javascript" src = "{% static 'blogs/js/bootstrap.min.js' %}"></script>
 </body>

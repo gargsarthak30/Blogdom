@@ -1,4 +1,4 @@
-from django.shortcuts import  HttpResponseRedirect, render
+from django.shortcuts import  HttpResponseRedirect, render, HttpResponse
 from django.views.generic.base import TemplateView
 from django.views.generic import CreateView, UpdateView
 from . models import Post, UserBlogdom, UpvoteDetail
@@ -87,7 +87,7 @@ def post_upvote(request, post_id):
         post.upvotes = post.upvotes + 1
         post.save()
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponse(post.upvotes)
 
 
 def LogoutUser(request):
