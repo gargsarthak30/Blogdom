@@ -61,12 +61,19 @@ class PostUpdate(UpdateView):
     fields = ['heading', 'blog_content', 'public', 'image']
     template_name = 'blogs/post_create.html'
 
+
     def form_valid(self, form):
         object = form.save(commit=False)
         if (str(object.blogger) == str(self.request.user)):
              return super(PostUpdate, self).form_valid(form)
         else:
             return HttpResponseRedirect(reverse('user_profile', kwargs={'pk': self.request.user.username}))
+
+
+def load_blog_content(request, id):
+    content = Post.objects.get(id=id)
+    content = content.blog_content
+    return HttpResponse(content)
 
 
 @login_required

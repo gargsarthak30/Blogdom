@@ -82,7 +82,19 @@
 location.href = "{% url 'login' %}";
 {% endif %}
 }
+function content(postid)
+{
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+        document.getElementById("more"+postid).innerHTML = xhttp.responseText;
+         }
+    };
+    xhttp.open("GET", "/blogs/content/"+postid, true);
+    xhttp.send();
+}
 </script>
+
 <script type = "text/javascript" src = "{% static 'blogs/js/jquery.js' %}"></script>
 <script type = "text/javascript" src = "{% static 'blogs/js/bootstrap.min.js' %}"></script>
 </body>
