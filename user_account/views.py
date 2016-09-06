@@ -1,10 +1,9 @@
-from django.shortcuts import render, HttpResponseRedirect, render_to_response, HttpResponse
-from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, HttpResponseRedirect, render_to_response
 from django.core.context_processors import csrf
 from django.contrib import auth
 from django.core.urlresolvers import reverse
 from django.views.generic import *
-from .forms import PasswordResetRequestForm, SetPasswordForm
+from .forms import PasswordResetRequestForm, SetPasswordForm, RegistrationForm
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
@@ -20,13 +19,15 @@ from django.db.models.query_utils import Q
 
 def user_signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = RegistrationForm(request.POST)
         if form.is_valid():
-            form.save(commit=True)
+            form.save()
             return HttpResponseRedirect(reverse('login'))
+    else:
+        form = RegistrationForm()
     args = {}
     args.update(csrf(request))
-    args['form'] = UserCreationForm()
+    args['form'] = form
     return render_to_response('signup.html', args)
 
 
