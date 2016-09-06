@@ -24,7 +24,6 @@ class UserBlogdom(models.Model):
     user = models.OneToOneField(User)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    email = models.EmailField(null=False, blank=False)
     age = models.PositiveSmallIntegerField(blank=True, null=True, validators=[MaxValueValidator(100)])
     bio = models.CharField(max_length=150, blank=True, null=True)
     description = models.CharField(max_length=500, blank=True, null=True)
