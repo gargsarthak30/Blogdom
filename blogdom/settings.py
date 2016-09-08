@@ -123,7 +123,7 @@ LOGIN_URL = reverse_lazy('user_account.views.user_login')
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join((PROJECT_ROOT), 'static')
+STATIC_ROOT = os.path.join((BASE_DIR), 'static')
 STATIC_URL = '/static/'
 
 
