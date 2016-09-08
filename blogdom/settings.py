@@ -1,6 +1,6 @@
 from django.core.urlresolvers import reverse_lazy
 import os
-import socket
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -12,17 +12,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '-rf$^(3fzvydbwi*b+t^jp*8v_%*e(t%d4$ul!ywey8k=q$5+m'
 
-if socket.gethostname() == 'SARTHAK':
-    DEBUG = TEMPLATE_DEBUG = True
-else:
-    DEBUG = False
-    TEMPLATE_DEBUG = False
+DEBUG = TEMPLATE_DEBUG = True
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://blogdom.herokuapp.com/"]
 
 
 # Application definition
@@ -124,7 +120,10 @@ LOGIN_URL = reverse_lazy('user_account.views.user_login')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATIC_URL = '/static/'
+
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
