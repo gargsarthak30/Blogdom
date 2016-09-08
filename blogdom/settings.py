@@ -4,6 +4,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -122,6 +123,7 @@ LOGIN_URL = reverse_lazy('user_account.views.user_login')
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATIC_ROOT = os.path.join((PROJECT_ROOT), 'static')
 STATIC_URL = '/static/'
 
 
