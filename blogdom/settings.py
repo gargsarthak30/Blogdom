@@ -1,6 +1,6 @@
 from django.core.urlresolvers import reverse_lazy
 import os
-
+import socket
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -12,8 +12,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '-rf$^(3fzvydbwi*b+t^jp*8v_%*e(t%d4$ul!ywey8k=q$5+m'
 
+if socket.gethostname() == 'SARTHAK':
+    DEBUG = TEMPLATE_DEBUG = True
+else:
+    DEBUG = False
+    TEMPLATE_DEBUG = False
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 ALLOWED_HOSTS = []
 
@@ -129,3 +136,14 @@ EMAIL_HOST_PASSWORD = 'internship30'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# To send the admins mail when some server side error occurs.
+ADMINS = (
+    ('admin', 'admin@example.com'),
+)
+
+# For broken links.
+SEND_BROKEN_LINK_EMAIL = True
+MANAGERS = (
+    ('admin', 'admin@example.com'),
+)
