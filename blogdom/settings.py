@@ -78,7 +78,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'dbj625b23toj27',
         'USER': 'zemimmeieaddkb',
-        'PASSWORD': 'xfrLIaRfIDyd-mPDLTQFhjhMC',
+        'PASSWORD': '-xfrLIaRfIDyd-mPDLTQFhjhMC',
     }
 }
 
