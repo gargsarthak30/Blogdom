@@ -15,4 +15,4 @@ requests-oauthlib==0.6.0
 Twisted==15.5.0
 urlparse2==1.1.1
 whitenoise==3.2.1
-PIL==1.1.7.
+PIL==1.1.7
