@@ -19,8 +19,8 @@ DEBUG = TEMPLATE_DEBUG = True
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = ["https://blogdom.herokuapp.com/"]
-
+# ALLOWED_HOSTS = ["https://blogdom.herokuapp.com/"]
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -75,11 +75,7 @@ WSGI_APPLICATION = 'blogdom.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'da326h3crsm4oj',
-        'USER': 'lruvjpycvqribo',
-        'PASSWORD': ' V7--dLmMjpHHwHM5-CSThUxIVD',
-        'HOST': 'ec2-54-163-239-64.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -126,7 +122,7 @@ LOGIN_URL = reverse_lazy('user_account.views.user_login')
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join((BASE_DIR), 'static')
+STATIC_ROOT = os.path.join((PROJECT_ROOT), 'static')
 STATIC_URL = '/static/'
 
 
