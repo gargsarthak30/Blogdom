@@ -74,8 +74,11 @@ WSGI_APPLICATION = 'blogdom.wsgi.application'
 
 DATABASES = {
     'default': {
+        'HOST': 'ec2-54-243-202-110.compute-1.amazonaws.com',
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': 'dbj625b23toj27',
+        'USER': 'zemimmeieaddkb',
+        'PASSWORD': 'xfrLIaRfIDyd-mPDLTQFhjhMC',
     }
 }
 
