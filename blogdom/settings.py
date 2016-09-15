@@ -75,13 +75,7 @@ WSGI_APPLICATION = 'blogdom.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'HOST': 'ec2-54-243-202-110.compute-1.amazonaws.com',
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dbj625b23toj27',
-        'USER': 'zemimmeieaddkb',
-        'PASSWORD': '-xfrLIaRfIDyd-mPDLTQFhjhMC',
-    }
+    
 }
 
 
@@ -137,8 +131,7 @@ MEDIA_URL = '/media/'
 #SMTP Configuration
 
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'gargsarthak30'
-EMAIL_HOST_PASSWORD = 'internship30'
+
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
