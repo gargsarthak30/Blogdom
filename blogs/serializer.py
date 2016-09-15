@@ -12,5 +12,5 @@ class PostSerializer(serializers.ModelSerializer):
 class UserBlogdomSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserBlogdom
-        fields = ('user', 'first_name', 'last_name', 'email', 'age', 'bio', 'description')
+        fields = ('user', 'first_name', 'last_name', 'age', 'bio', 'description')
 
