@@ -16,3 +16,4 @@ Twisted==15.5.0
 urlparse2==1.1.1
 whitenoise==3.2.1
 Pillow==2.7.0
+psycopg2
