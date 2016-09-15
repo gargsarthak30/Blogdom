@@ -58,7 +58,7 @@ class PostCreateView(CreateView):
 
 class PostUpdate(UpdateView):
     model = Post
-    fields = ['heading', 'blog_content', 'public', 'image']
+    fields = ['heading', 'blog_content', 'image']
     template_name = 'blogs/post_create.html'
 
 
