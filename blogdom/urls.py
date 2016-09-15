@@ -6,7 +6,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', include('blogs.urls')),
     url(r'^blogs/', include('blogs.urls')),
     url(r'^user_account/', include('user_account.urls')),
 ]
