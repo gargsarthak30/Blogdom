@@ -13,7 +13,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '-rf$^(3fzvydbwi*b+t^jp*8v_%*e(t%d4$ul!ywey8k=q$5+m'
 
-DEBUG = TEMPLATE_DEBUG = True
+DEBUG = TEMPLATE_DEBUG = False
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'blogdom.wsgi.application'
 DATABASES = {
     'default': {
         'HOST': 'ec2-54-243-202-110.compute-1.amazonaws.com',
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'dbj625b23toj27',
         'USER': 'zemimmeieaddkb',
         'PASSWORD': '-xfrLIaRfIDyd-mPDLTQFhjhMC',
