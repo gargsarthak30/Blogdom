@@ -1,7 +1,7 @@
 {% extends 'blogs/base.html' %}
 {% block title %} {{user}} {% endblock %}
 {% block content %}
-{% load media %}
+{% load staticfiles %}
 
 {% if user.cover_picture %}
 <img src = "{{user.cover_picture.url}}" class = "img-responsive" style = "width:100%;height:350px;border-radius: 0px;
