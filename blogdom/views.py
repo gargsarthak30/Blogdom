@@ -1,4 +1,4 @@
-from django.shortcuts import  HttpResponseRedirect, render, HttpResponse
+from django.shortcuts import  HttpResponseRedirect
 
 
 def Index(request):
