@@ -13,13 +13,13 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '-rf$^(3fzvydbwi*b+t^jp*8v_%*e(t%d4$ul!ywey8k=q$5+m'
 
-DEBUG = True
+DEBUG = False
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = ["https://blogdom.herokuapp.com/"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -57,7 +57,7 @@ TEMPLATES = [
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
-            'debug': True,
+            'debug': False,
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
