@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse_lazy
 import os
 from whitenoise import WhiteNoise
+import socket
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -13,13 +14,16 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '-rf$^(3fzvydbwi*b+t^jp*8v_%*e(t%d4$ul!ywey8k=q$5+m'
 
-DEBUG = False
+if socket.gethostname() == 'SARTHAK':
+    DEBUG = True
+else:
+    DEBUG = False
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', 'https://blogdom.herokuapp.com']
 
 
 # Application definition
@@ -57,7 +61,7 @@ TEMPLATES = [
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
-            'debug': False,
+            'debug': DEBUG,
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -73,16 +77,13 @@ WSGI_APPLICATION = 'blogdom.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'HOST': 'ec2-54-243-202-110.compute-1.amazonaws.com',
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dbj625b23toj27',
-        'USER': 'zemimmeieaddkb',
-        'PASSWORD': '-xfrLIaRfIDyd-mPDLTQFhjhMC',
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+
 
 
 # Password validation
