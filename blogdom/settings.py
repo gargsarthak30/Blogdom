@@ -23,7 +23,7 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.sites',
     'rest_framework',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -77,12 +76,24 @@ WSGI_APPLICATION = 'blogdom.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-DATABASES = {
+
+if not DEBUG:
+    DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            'HOST': 'ec2-54-243-202-110.compute-1.amazonaws.com',
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'dbj625b23toj27',
+            'USER': 'zemimmeieaddkb',
+            'PASSWORD': '-xfrLIaRfIDyd-mPDLTQFhjhMC',
         }
     }
+else:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 
 
