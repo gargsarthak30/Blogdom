@@ -14,6 +14,6 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('heading', 'blog_content', 'image')
-        widgets = {"blog_content": forms.Textarea, "heading": forms.Textarea}
+        widgets = {"blog_content": forms.Textarea}
 
 

@@ -49,14 +49,17 @@
                     <img src = "{{pos.image.url}}" class = "img-responsive">
                         <br/>
                 {% endif %}
-                    {% if pos.blog_content|length >= 270 %}
+            {% if pos.blog_content|length >= 270 %}
                 <p style = "font-family: 'Oleo+Script', cursive;">
-                    <span id = "more{{pos.id}}"> {{pos.blog_content|truncatewords:50}}
+                    <span id = "more{{pos.id}}">{{pos.blog_content|truncatewords:50}}
                     <a onclick="content({{pos.id}})">more</a></span>
                 </p>
+
                 {% else %}
-                         <p style = "font-family: 'Oleo+Script', cursive;">{{pos.blog_content}}</p>
-                    {% endif %}
+                     <p style = "font-family: 'Oleo+Script', cursive;">{% autoescape off %}{{pos.blog_content}}{%endautoescape%}</p>
+            {% endif %}
+
+
                     <small>{{pos.time}}</small>
                     <button onclick = "upvotes_ajax({{pos.id}})" class = "btn btn-lg btn-primary btn-block"><b>
                       <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span id = "{{pos.id}}">{{pos.upvotes}}</span></b>

@@ -61,7 +61,7 @@ class Post(models.Model):
     heading = models.CharField(max_length=150)
     blog_content = models.TextField()
     upvotes = models.IntegerField(default=0)
-    time = models.DateTimeField(editable=False, default=timezone.now)
+    time = models.DateTimeField(editable=False, default=timezone.localtime(timezone.now()))
     image = models.ImageField(blank=True, null=True, upload_to=content_post_image)
 
     def __str__(self):
