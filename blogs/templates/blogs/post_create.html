@@ -10,6 +10,7 @@
 </div>
     <div class = "col-md-8">
         <center>
+            {% autoescape off %}
             <form class = "form-horizontal" action = "" method = "post" enctype = "multipart/form-data">
                 {% csrf_token %}
                 {% include 'blogs/form-template.html' %}
@@ -18,7 +19,18 @@
                 <button type = "submit" class = "btn btn-success">Submit</button>
                 </center>
             </form>
+            {% endautoescape %}
         </center>
     </div>
 </div>
+<script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+<script>
+tinymce.init({selector:'textarea',
+    plugins: [
+        "advlist autolink lists link charmap print preview hr anchor pagebreak",
+        "searchreplace wordcount visualblocks visualchars code fullscreen",
+        "insertdatetime media nonbreaking save table contextmenu directionality",
+        "emoticons template paste textcolor colorpicker textpattern"
+    ],
+});</script>
 {% endblock %}
