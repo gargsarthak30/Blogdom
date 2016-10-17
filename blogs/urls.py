@@ -6,6 +6,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     url(r'^logout_user/', views.LogoutUser, name='logout'),
+    url(r'delete/user', views.DeleteUser, name = 'deleteUser'),
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^new_post/$', login_required(views.PostCreateView.as_view()), name='new_post'),
     url(r'^content/(?P<id>[0-9]+)', views.load_blog_content, name= "load_blog_content"),

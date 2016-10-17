@@ -8,6 +8,7 @@ from . forms import UserBlogdomForm, PostForm
 from django.contrib.auth import logout
 from rest_framework import generics
 from .serializer import UserBlogdomSerializer, PostSerializer
+from django.contrib.auth.models import User
 
 
 class IndexView(TemplateView):
@@ -43,6 +44,16 @@ def UserBlogdomUpdate(request):
     args = {}
     args['form'] = form
     return render(request, 'blogs/profile_edit.html', args)
+
+
+@login_required
+def DeleteUser(request):
+    user = request.user
+    record = UserBlogdom.objects.get(user = user)
+    recordMain = User.objects.get(username = user)
+    record.delete()
+    recordMain.delete()
+    return HttpResponseRedirect(reverse('index'))
 
 
 class PostCreateView(CreateView):
