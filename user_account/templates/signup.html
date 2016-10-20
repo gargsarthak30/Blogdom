@@ -2,7 +2,7 @@
 {%block title%}Sign Up{% endblock %}
 {% block content %}
 {% load formcontrol %}
-
+<br/><br/>
 <form class = "form-horizontal" action = "{% url 'signup' %}" method="post">
     {% csrf_token %}
    {% for field in form %}
