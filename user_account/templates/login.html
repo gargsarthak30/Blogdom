@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {%block title%}User Login{% endblock %}
 {% block content %}
+<br/><br/>
 {% if errors %}
 <center>
 <p><b>Sorry, that's not a valid username/password</b></p>
     {% endif %}
+
     <form class = "form-horizontal" action="" method="post">
     {% csrf_token %}
         <div class = "row">
@@ -47,6 +49,5 @@
             </div>
         </div>
     </form>
-
     </center>
     {% endblock %}
