@@ -81,20 +81,37 @@
 {% block content %}
 {% endblock %}
 <script>
-    function upvotes_ajax(id) {
+
+function update_rating(userid)
+   {
+    var xxhttp = new XMLHttpRequest();
+    xxhttp.onreadystatechange = function() {
+        if (xxhttp.readyState == 4 && xxhttp.status == 200) {
+            document.getElementById(userid).innerHTML = xxhttp.responseText;
+             }
+        };
+        xxhttp.open("GET", "/blogs/rating/"+userid, true);
+        xxhttp.send();
+    }
+
+    function upvotes_ajax(id, userid) {
     {% if not request.user.is_anonymous %}
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             document.getElementById(id).innerHTML = xhttp.responseText;
+            update_rating(userid);
         }
     };
     xhttp.open("GET", "blogs/upvote/"+id, true);
     xhttp.send();
+
+
 {% else %}
 location.href = "{% url 'login' %}";
 {% endif %}
 }
+
 function content(postid)
 {
 var xhttp = new XMLHttpRequest();
@@ -106,6 +123,8 @@ xhttp.onreadystatechange = function() {
     xhttp.open("GET", "/blogs/content/"+postid, true);
     xhttp.send();
 }
+
+
 </script>
 
 <script type = "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

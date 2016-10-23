@@ -87,6 +87,11 @@ def load_blog_content(request, id):
     return HttpResponse(content)
 
 
+def rating_user(request, username):
+    user_rating = UserBlogdom.objects.get(user__username=username).get_rating()
+    return HttpResponse(user_rating)
+
+
 @login_required
 def post_upvote(request, post_id):
     post = Post.objects.get(pk=post_id)
