@@ -82,9 +82,9 @@ if not DEBUG:
         'default': {
             'HOST': 'ec2-54-243-202-110.compute-1.amazonaws.com',
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'dbj625b23toj27',
-            'USER': 'zemimmeieaddkb',
-            'PASSWORD': '-xfrLIaRfIDyd-mPDLTQFhjhMC',
+            'NAME': '',
+            'USER': '',
+            'PASSWORD': '',
         }
     }
 else:
@@ -95,7 +95,11 @@ else:
     }
 }
 
-
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
