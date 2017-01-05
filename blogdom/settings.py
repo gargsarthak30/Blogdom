@@ -152,12 +152,13 @@ MEDIA_URL = '/media/'
 
 #SMTP Configuration
 
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'gargsarthak30'
-EMAIL_HOST_PASSWORD = 'hello123'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+from . import email
+
+EMAIL_USE_TLS = email.EMAIL_USE_TLS
+EMAIL_HOST = email.EMAIL_HOST
+EMAIL_HOST_USER = email.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = email.EMAIL_HOST_PASSWORD
+EMAIL_PORT = email.EMAIL_PORT
 
 # To send the admins mail when some server side error occurs.
 ADMINS = (
