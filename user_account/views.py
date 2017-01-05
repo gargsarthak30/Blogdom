@@ -15,6 +15,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.db.models.query_utils import Q
+from . import welcomeMail
 
 
 def user_signup(request):
@@ -22,6 +23,11 @@ def user_signup(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
+            subject = welcomeMail.subject
+            message = welcomeMail.message
+            from_email = welcomeMail.from_email
+            to_list = [request.POST.get('email')]
+            send_mail(subject, message, from_email, to_list, fail_silently=True)
             return HttpResponseRedirect(reverse('login'))
     else:
         form = RegistrationForm()
