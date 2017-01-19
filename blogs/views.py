@@ -9,6 +9,9 @@ from django.contrib.auth import logout
 from rest_framework import generics
 from .serializer import UserBlogdomSerializer, PostSerializer
 from django.contrib.auth.models import User
+import cloudinary
+import cloudinary.uploader
+import os
 
 
 class IndexView(TemplateView):
@@ -34,6 +37,16 @@ def UserBlogdomUpdate(request):
     if request.method == 'POST':
         form = UserBlogdomForm(request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid():
+            profile_pic = request.FILES.get('profile_picture')
+            profile_pic_public_id = content_profile_picture(request.user.profile, str(profile_pic))
+            cover_pic = request.FILES.get('cover_picture')
+            cover_pic_public_id = content_cover_picture(request.user.profile, str(cover_pic))
+            if profile_pic is not None:
+                cloudinary.uploader.upload(profile_pic, public_id = profile_pic_public_id)
+            if cover_pic is not None:
+                cloudinary.uploader.upload(cover_pic, public_id = cover_pic_public_id)
+            user_profile_image = os.path.splitext(str(profile_pic))
+            form.profile_picture = user_profile_image[0]
             form.save(commit=True)
             return HttpResponseRedirect(reverse('user_profile', kwargs={'pk': request.user.username}))
     else:
@@ -44,6 +57,22 @@ def UserBlogdomUpdate(request):
     args = {}
     args['form'] = form
     return render(request, 'blogs/profile_edit.html', args)
+
+
+def content_profile_picture(instance, filename):
+    filename = os.path.splitext(filename)[0]
+    return 'user_{0}-profile_picture-{1}'.format(instance.user, filename)
+
+
+def content_cover_picture(instance, filename):
+    filename = os.path.splitext(filename)[0]
+    return 'user_{0}-cover_picture-{1}'.format(instance.user, filename)
+
+
+def content_post_image(instance, filename):
+    filename = os.path.splitext(filename)[0]
+    # dirname = instance.time.strftime('%Y.%m.%d.%H.%M.%S')
+    return 'user_{0}-posts-{1}'.format(instance.blogger, filename)
 
 
 @login_required
@@ -64,6 +93,12 @@ class PostCreateView(CreateView):
     def form_valid(self, form):
         post = form.save(commit=False)
         post.blogger = UserBlogdom.objects.get(user=self.request.user)
+        post_image = os.path.splitext(str(post.image))
+        print(post.image)
+        post_pic_public_id = content_post_image(post, str(post.image))
+        if str(post.image) != '':
+            cloudinary.uploader.upload(post.image, public_id = post_pic_public_id)
+        post.image = post_image[0]
         return super(PostCreateView, self).form_valid(form)
 
 
@@ -72,9 +107,12 @@ class PostUpdate(UpdateView):
     fields = ['heading', 'blog_content', 'image']
     template_name = 'blogs/post_create.html'
 
-
     def form_valid(self, form):
         object = form.save(commit=False)
+        post_pic = object.image
+        post_pic_public_id = content_post_image(object, str(post_pic))
+        if str(object.image) != '':
+            cloudinary.uploader.upload(object.image, public_id=post_pic_public_id)
         if (str(object.blogger) == str(self.request.user)):
              return super(PostUpdate, self).form_valid(form)
         else:

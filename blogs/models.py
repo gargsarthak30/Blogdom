@@ -7,19 +7,6 @@ from django.core.validators import MaxValueValidator
 from django.contrib.auth.models import User
 
 
-def content_profile_picture(instance, filename):
-    return 'user_{0}/profile_picture/{1}'.format(instance.user, filename)
-
-
-def content_post_image(instance, filename):
-    dirname = instance.time.strftime('%Y.%m.%d.%H.%M.%S')
-    return 'user_{0}/posts/{1}/{2}'.format(instance.blogger, dirname, filename)
-
-
-def content_cover_picture(instance, filename):
-    return 'user_{0}/cover_picture/{1}'.format(instance.user, filename)
-
-
 class UserBlogdom(models.Model):
     user = models.OneToOneField(User)
     first_name = models.CharField(max_length=50)
@@ -27,8 +14,8 @@ class UserBlogdom(models.Model):
     age = models.PositiveSmallIntegerField(blank=True, null=True, validators=[MaxValueValidator(100)])
     bio = models.CharField(max_length=150, blank=True, null=True)
     description = models.CharField(max_length=500, blank=True, null=True)
-    profile_picture = models.ImageField(blank=True, null=True, upload_to=content_profile_picture)
-    cover_picture = models.ImageField(blank=True, null = True, upload_to = content_cover_picture)
+    profile_picture = models.ImageField(blank=True, null=True)
+    cover_picture = models.ImageField(blank=True, null = True)
 
     User.profile = property(lambda u: UserBlogdom.objects.get_or_create(user=u)[0])
 
@@ -62,7 +49,7 @@ class Post(models.Model):
     blog_content = models.TextField()
     upvotes = models.IntegerField(default=0)
     time = models.DateTimeField(editable=False, default=timezone.localtime(timezone.now()))
-    image = models.ImageField(blank=True, null=True, upload_to=content_post_image)
+    image = models.ImageField(blank=True, null=True)
 
     def __str__(self):
         return self.heading
