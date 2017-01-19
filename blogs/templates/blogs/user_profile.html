@@ -2,9 +2,9 @@
 {% block title %} {{user}} {% endblock %}
 {% block content %}
 {% load static %}
-
+{% load cloudinary %}
 {% if user.cover_picture %}
-<img src = "{{user.cover_picture.url}}" class = "img-responsive" style = "width:100%;height:350px;border-radius: 0px;
+<img src = "http://res.cloudinary.com/blogdom/image/upload/user_{{user}}-cover_picture-{{user.cover_picture|cut:'./'}}" class = "img-responsive" style = "width:100%;max-height:350px;border-radius: 0px;
             box-shadow: 0px 0px 0px 0px;">
 {% endif %}
  <hr/>
@@ -24,7 +24,7 @@
     {%endifequal%}
     <div class = "col-md-2">
         {% if user.profile_picture %}
-            <img src = "{{user.profile_picture.url}}" class = "img-responsive">
+            <img src = "http://res.cloudinary.com/blogdom/image/upload/user_{{user}}-profile_picture-{{user.profile_picture|cut:'./'}}" class = "img-responsive">
         {% endif %}
         <h2> {{user.first_name}} {{user.last_name}} </h2>
         <h5>
@@ -39,25 +39,20 @@
             <hr/>
             {% for pos in posts %}
             <center>
-                <h3 style = "font-family: 'Ceviche+One', cursive;">{{pos.heading}}
+                <h3 style = "font-family: 'Ceviche+One';"><b>{{pos.heading}}</b>
                 {% ifequal user|stringformat:"s" request.user|stringformat:"s" %}
                     <a href = "{% url 'post_edit' pos.id%}"><small>Edit</small></a>
                 {% endifequal %}
                 </h3>
             </center>
                 {% if pos.image %}
-                    <img src = "{{pos.image.url}}" class = "img-responsive">
+                    <img src = "http://res.cloudinary.com/blogdom/image/upload/user_{{user}}-posts-{{pos.image|cut:'./'}}" class = "img-responsive" style = "width:100%;max-height:350px;">
                         <br/>
                 {% endif %}
-            {% if pos.blog_content|length >= 270 %}
-                <p style = "font-family: 'Oleo+Script', cursive;">
-                    <span id = "more{{pos.id}}">{{pos.blog_content|truncatewords:50}}
-                    <a onclick="content({{pos.id}})">more</a></span>
-                </p>
 
-                {% else %}
-                     <p style = "font-family: 'Oleo+Script', cursive;">{% autoescape off %}{{pos.blog_content}}{%endautoescape%}</p>
-            {% endif %}
+                <p style = "font-family: 'Oleo+Script'">{% autoescape off %}
+                   {{pos.blog_content}}{%endautoescape%}
+                                    </p>
 
 
                     <small>{{pos.time}}</small>

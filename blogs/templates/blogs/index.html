@@ -17,22 +17,18 @@
     <center><h2>Top Blogs</h2></center>
     {% for posts in top_posts %}
         <div class="page-header">
-            <h3 style = "font-family: 'Ceviche+One', cursive;"><i>{{posts.heading}}</i>&nbsp;<small><a href = "{% url 'user_profile' posts.blogger %}">{{posts.blogger}}</a></small></h3>
+            <h3 style = "font-family: 'Ceviche+One';"><b>{{posts.heading}}</b>&nbsp;<small><a href = "{% url 'user_profile' posts.blogger %}">{{posts.blogger}}</a></small></h3>
         </div>
     {% if posts.image %}
-    <img src = "{{posts.image.url}}" class = "img-responsive">
+    <img src = "http://res.cloudinary.com/blogdom/image/upload/user_{{posts.blogger}}-posts-{{posts.image|cut:'./'}}" class = "img-responsive">
     <br/>
     {% endif %}
 
-     {% if posts.blog_content|length >= 270 %}
-                <p style = "font-family: 'Oleo+Script', cursive;">
-                    <span id = "more{{posts.id}}"> {{posts.blog_content|truncatewords:50}}
-                    <a onclick="content({{posts.id}})">more</a></span>
-                </p>
-                {% else %}
-                        <p style = "font-family: 'Oleo+Script', cursive;">{% autoescape off %}{{posts.blog_content}}{%endautoescape%}</p>
-                    {% endif %}
 
+                <p style = "font-family: 'Oleo+Script';">{% autoescape off %}
+                    {{posts.blog_content}}
+                    {%endautoescape%}
+                </p>
 
     <small>{{posts.time}}</small>
     <button onclick = "upvotes_ajax( {{posts.id}},'{{posts.blogger}}')" class = "btn btn-lg btn-primary btn-block"><b>
