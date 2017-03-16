@@ -9,7 +9,24 @@
     <hr/>
      <ul class="list-group">
     {% for rec in recent_posts %}
-   <li class="list-group-item"><a href = "{% url 'user_profile' rec.blogger %}">{{rec.heading}}</a></li>
+   <li class="list-group-item">
+                {% if rec.image %}
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object" src="http://res.cloudinary.com/blogdom/image/upload/user_{{rec.blogger}}-posts-{{rec.image|cut:'./'}}" style = "height:64px;width:64px; box-shadow:None;">
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object" src="http://res.cloudinary.com/blogdom/image/upload/v1489553368/no_thumbnail_ymgvgr.jpg" style = "height:64px;width:64px; box-shadow:None;">
+                        </a>
+                    </div>
+                {% endif %}
+                <div class="media-body">
+                    <h4 class="media-heading"><a href = "{% url 'user_profile' rec.blogger %}">{{rec.heading}}</a></h4>
+                </div>
+            </li>
     {% endfor %}
     </ul>
 </div>
@@ -44,7 +61,25 @@
         </center>
 <ul class="list-group">
     {% for top in best_bloggers %}
-   <li class="list-group-item" ><span class="badge" id = "{{top.user}}">{{top.get_rating}}</span><a href = "{% url 'user_profile' top.user %}">{{top.user}}</a></li>
+  <li class="list-group-item" >
+                        {% if top.profile_picture %}
+                        <div class="media-left">
+                            <a href="#">
+                              <img class="media-object" src="http://res.cloudinary.com/blogdom/image/upload/user_{{top.user}}-profile_picture-{{top.profile_picture|cut:'./'}}" style = "height:64px;width:64px; box-shadow:None;">
+                            </a>
+                        </div>
+                        {% else %}
+                        <div class="media-left">
+                            <a href="#">
+                              <img class="media-object" src="http://res.cloudinary.com/blogdom/image/upload/v1486372421/default_qnlbtj.jpg" style = "height:64px;width:64px; box-shadow:None;">
+                            </a>
+                        </div>
+                        {% endif %}
+                      <div class="media-body">
+                        <h4 class="media-heading"><a href = "{% url 'user_profile' top.user %}">{{top.user}}</a></h4>
+                          Rating: <span class="badge" id = "{{top.user}}">{{top.get_rating}}</span>
+                      </div>
+                    </li>
     {% endfor %}
     </ul>
 </div>
