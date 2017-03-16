@@ -22,11 +22,13 @@
           bottom: 0;
           width: 100%;
           height: 40px;
-          background-color: #000;
+          background-color: #ffff;
           text-align: center;
 
         }
-
+        .footer {
+            display: none;
+}
         /*=========================
           Icons
          ================= */
@@ -240,5 +242,19 @@ xhttp.onreadystatechange = function() {
 
 <script type = "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type = "text/javascript" src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+    var prevScroll = 0;
+   $(window).scroll(function () {
+    var y = $(this).scrollTop();
+    if (y >= prevScroll) {
+        $('.footer').fadeIn();
+        $('.navbar').fadeOut();
+    } else {
+        $('.navbar').fadeIn();
+        $('.footer').fadeOut();
+    }
+    prevScroll = y;
+});
+</script>
 </body>
 </html>
