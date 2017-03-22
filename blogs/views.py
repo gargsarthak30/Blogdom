@@ -13,13 +13,21 @@ import cloudinary
 import cloudinary.uploader
 import os
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6cd1878fc6176a9923f87f47e1f2b62c1f61f210
 class IndexView(TemplateView):
     template_name = 'blogs/index.html'
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['top_posts'] = Post.objects.order_by('-upvotes')
+<<<<<<< HEAD
         context['recent_posts'] = Post.objects.order_by('-time')
+=======
+        context['recent_posts'] = Post.objects.order_by('-time')[:5]
+>>>>>>> 6cd1878fc6176a9923f87f47e1f2b62c1f61f210
         top_bloggers = sorted(UserBlogdom.objects.all(), key=lambda a: a.get_rating(), reverse=True)
         context['best_bloggers'] = top_bloggers
         return context

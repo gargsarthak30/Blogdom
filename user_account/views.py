@@ -76,6 +76,7 @@ class ResetPasswordRequestView(FormView):
         if form.is_valid():
             data = form.cleaned_data["email_or_username"]
 
+<<<<<<< HEAD
             if self.validate_email_address(data) is True:
                 associated_users = User.objects.filter(Q(email=data)|Q(username=data))
                 if associated_users.exists():
@@ -131,13 +132,74 @@ class ResetPasswordRequestView(FormView):
                 messages.error(request, 'This username does not exist in the system.')
                 return result
 
+=======
+        if self.validate_email_address(data) is True:
+            associated_users = User.objects.filter(Q(email=data)|Q(username=data))
+            if associated_users.exists():
+                for user in associated_users:
+                    c = {
+                        'email': user.email,
+                        'domain': request.META['HTTP_HOST'],
+                        'site_name': 'Blogdom',
+                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                        'user': user,
+                        'token': default_token_generator.make_token(user),
+                        'protocol': 'http',
+                        }
+                    subject_template_name='password_reset_subject.txt'
+                    email_template_name = 'password_reset_email.html'
+                    subject = loader.render_to_string(subject_template_name, c)
+                    subject = ''.join(subject.splitlines())
+                    email = loader.render_to_string(email_template_name, c)
+                    send_mail(subject, email, settings.DEFAULT_FROM_EMAIL, [user.email], fail_silently=False)
+
+                result = self.form_valid(form)
+                messages.success(request, 'An email has been sent to ' + data +". Please check its inbox to continue reseting password.")
+                return result
+            result = self.form_invalid(form)
+            messages.error(request, 'No user is associated with this email address')
+            return result
+
+        else:
+            associated_users = User.objects.filter(username=data)
+            if associated_users.exists():
+                for user in associated_users:
+                    c = {
+                        'email': user.email,
+                        'domain': request.META['HTTP_HOST'],
+                        'site_name': 'Blogdom',
+                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                        'user': user,
+                        'token': default_token_generator.make_token(user),
+                        'protocol': 'http',
+                        }
+                    subject_template_name='password_reset_subject.txt'
+                    email_template_name = 'password_reset_email.html'
+                    subject = loader.render_to_string(subject_template_name, c)
+                    subject = ''.join(subject.splitlines())
+                    email = loader.render_to_string(email_template_name, c)
+                    send_mail(subject, email, 'garg_sarthak@yahoo.com', [user.email], fail_silently=False)
+
+                result = self.form_valid(form)
+                messages.success(request, 'Email has been sent to ' + data +"'s email address. Please check its inbox to continue reseting password.")
+                return result
+
+            result = self.form_invalid(form)
+            messages.error(request, 'This username does not exist in the system.')
+            return result
+
+>>>>>>> 6cd1878fc6176a9923f87f47e1f2b62c1f61f210
         messages.error(request, 'Invalid Input')
         return self.form_invalid(form)
 
 
 class PasswordResetConfirmView(FormView):
     template_name = 'test_template.html'
+<<<<<<< HEAD
     success_url = 'user_account/login/'
+=======
+    success_url = '/login/'
+>>>>>>> 6cd1878fc6176a9923f87f47e1f2b62c1f61f210
     form_class = SetPasswordForm
 
     def post(self, request, token=None, uidb64=None, *args, **kwargs):
